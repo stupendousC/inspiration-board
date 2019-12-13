@@ -5,7 +5,7 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
+// import CARD_DATA from '../data/card-data.json';    I did NOT use this hard coded .json
 
 class Board extends Component {
   constructor(props) {
@@ -19,8 +19,6 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    // console.log("<Board> mounted");
-
     axios.get(this.state.boardURL + "/cards")
     .then((response) => {
       const allCards = response.data.map( (hash) => {
@@ -36,8 +34,13 @@ class Board extends Component {
   showCards = () => {
     console.log("generating <Card> components for this.state.cards", this.state.cards);
     return (this.state.cards.map((card, i) => {
-      return(<Card key={i} id={card.id} text={card.text} emoji={card.emoji}/>);
+      return(<Card key={i} id={card.id} text={card.text} emoji={card.emoji} baseUrl={this.props.baseUrl} deleteCardCallback={this.deleteCard}/>);
     }));
+  }
+
+  deleteCard = (id) => {
+    console.log(`Board received: Delete triggered in <Card> for id ${id}`);
+    
   }
 
   render() {
