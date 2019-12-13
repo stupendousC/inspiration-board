@@ -1,5 +1,11 @@
+.card__container {
+  display: flex;
+  flex-wrap: wrap;
+  
+}
+
 .card {
-  background-color: #F4FF81;
+  background-color: firebrick;
 
   padding: 1em 0;
   margin: 0.5rem;
@@ -8,7 +14,7 @@
   min-width: 225px;
   flex-basis: 18%;
 
-  border-radius: 5px;
+  border-radius: 20px;
 
   display: grid;
   grid-template-columns: 1fr 5fr 1fr;
@@ -42,6 +48,7 @@
 }
 
 .card__delete {
-  align-self: start;
+  align-self: center;
   font-family: 'Permanent Marker', Helvetica, sans-serif;
 }
+

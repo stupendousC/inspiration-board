@@ -21,22 +21,32 @@ class Board extends Component {
   componentDidMount() {
     // console.log("<Board> mounted");
 
-    axios.get(this.state.boardURL + "/cardsxxx")
+    axios.get(this.state.boardURL + "/cards")
     .then((response) => {
-      console.log(response.data);
+      const allCards = response.data.map( (hash) => {
+        return (hash.card);
+      });
+      this.setState({ cards: allCards });      
     })
     .catch((error) => {
       this.setState({ error: `Oh hell no!  ${error.message}`});
     })
   }
 
+  showCards = () => {
+    console.log("generating <Card> components for this.state.cards", this.state.cards);
+    return (this.state.cards.map((card, i) => {
+      return(<Card key={i} id={card.id} text={card.text} emoji={card.emoji}/>);
+    }));
+  }
 
   render() {
     return (
       <div>
         { this.state.error ? <h1>{this.state.error}</h1>: null}
         
-        Board
+        {this.showCards()}
+
       </div>
     )
   }
