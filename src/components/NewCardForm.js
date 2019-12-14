@@ -2,5 +2,60 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import emoji from 'emoji-dictionary';
 import './NewCardForm.css';
+import { thisExpression } from '@babel/types';
 
 const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
+
+export default class NewCardForm extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      emoji: "",
+      text: "",
+    }
+  }
+
+  genSelectMenu = () => {
+    return (
+      <section>
+        
+
+      </section>
+    );
+    
+  }
+  onFieldChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+  onFormSubmit = (event) => {
+    event.preventDefault();
+
+    const { text, emoji } = this.state;
+
+    console.log(`submitting form on... ${text} & ${emoji}`);
+    this.props.newCardCallback(text, emoji);
+  }
+
+  render() {
+    return (
+      <section className="new-card-form">
+        <h1 className="new-card-form__header">Add a New Card!</h1>
+        <form onSubmit={this.onFormSubmit} className="new-card-form__form">
+          <textarea value={this.state.text} onChange={this.onFieldChange} name="text" type="text" placeholder="Message" className="new-card-form__form-textarea" />
+          
+          <h3 className="new-card-form__form-label">Emoji:</h3>
+          {this.genSelectMenu()}
+
+          <input type="submit" className="new-card-form__form-button"/>
+        </form>
+
+      </section>
+    );
+  }
+}
+
+NewCardForm.propTypes = {
+  baseUrl: PropTypes.string.isRequired,
+  newCardCallback: PropTypes.func.isRequired,
+}

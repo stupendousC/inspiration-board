@@ -28,16 +28,13 @@ class Card extends Component {
   }
 
   render() {
-    
 
     return (
-      <div className="card__container">
         <section className="card card__content">
           <p className="card__content-text">{this.props.text}</p>
           <p className="card__content-emoji">{this.props.emoji ? emoji.getUnicode(this.props.emoji):null}</p>
           <input type="button" name={this.props.id} value="DELETE" onClick={this.deleteCard} className="card__delete"></input>
         </section>
-      </div>
     )
   }
 }

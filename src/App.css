@@ -33,3 +33,10 @@ h1, h2 {
 
   transform: rotate(-3deg) skew(-3deg);
 }
+
+
+.card__container {
+  display: flex;
+  flex-wrap: wrap;
+  
+}

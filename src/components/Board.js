@@ -12,14 +12,14 @@ class Board extends Component {
     super(props);
 
     this.state = {
-      boardURL: this.props.url + this.props.boardName,
+      boardURL: this.props.url + this.props.boardName  + "/cards",
       error: "",
       cards: [],
     };
   }
 
   componentDidMount() {
-    axios.get(this.state.boardURL + "/cards")
+    axios.get(this.state.boardURL)
     .then((response) => {
       const allCards = response.data.map( (hash) => {
         return (hash.card);
@@ -40,6 +40,21 @@ class Board extends Component {
 
   deleteCard = (id) => {
     console.log(`Board received: Delete triggered in <Card> for id ${id}`);
+    // DOESN"T WORK YET!!!!!!!
+  }
+
+  addNewCard = (text, emoji) => {
+    console.log("TODO!  ADD NEW CARD!", text, "&", emoji);
+    const cardObj = {card: { text: {text}, emoji: {emoji} }};
+
+    axios.post(this.state.boardURL, cardObj)
+    .then(response => {
+      console.log("SUCCESS!", response.data);
+      
+    })
+    .catch(error => {
+      this.setState({ error: `Adding new card failed b/c ${error.message}`})
+    });
     
   }
 
@@ -48,7 +63,11 @@ class Board extends Component {
       <div>
         { this.state.error ? <h1>{this.state.error}</h1>: null}
         
-        {this.showCards()}
+        <section className="card__container">
+          {this.showCards()}
+        </section>
+
+        <NewCardForm baseUrl={this.props.baseUrl} newCardCallback={this.addNewCard}/>
 
       </div>
     )
