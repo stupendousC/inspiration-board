@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import emoji from 'emoji-dictionary';
+import emojiNames from 'emoji-names';
 import './NewCardForm.css';
 import { thisExpression } from '@babel/types';
 
-const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
+// const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
+const EMOJI_LIST = ["", ...emojiNames];
 
 export default class NewCardForm extends Component {
   constructor(props) {
