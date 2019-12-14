@@ -43,7 +43,7 @@ class Board extends Component {
   deleteCard = (id) => {
     console.log(`Board received: Delete triggered in <Card> for id ${id}`);
     const endpoint = (this.props.baseUrl + "/cards/" + id); 
-       
+    
     axios.delete( endpoint )
     .then((response) => {
       // console.log("axios.delete:", response.data);

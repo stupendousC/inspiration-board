@@ -6,7 +6,7 @@ import './Card.css';
 class Card extends Component {
 
   deleteCard = (event) => {
-    console.log(`Delete this id: ${event.target.name}`);
+    // console.log(`Delete this id: ${event.target.name}`);
     this.props.deleteCardCallback(event.target.name);    
   }
 
@@ -26,6 +26,8 @@ Card.propTypes = {
   id: PropTypes.number.isRequired,
   text: PropTypes.string,
   emoji: PropTypes.string,
+  baseUrl: PropTypes.string,
+  deleteCardCallback: PropTypes.func.isRequired,
 };
 
 export default Card;
