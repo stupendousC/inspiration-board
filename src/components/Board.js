@@ -42,21 +42,21 @@ class Board extends Component {
 
   deleteCard = (id) => {
     console.log(`Board received: Delete triggered in <Card> for id ${id}`);
-    // DOESN"T WORK YET!!!!!!! I think I hsould do the axios.delete up here instead of in Card.js
-
-
-    const endpoint = (this.props.baseUrl + "/cards/" + event.target.name);
-    console.log(endpoint);
-    
-    Axios.delete( endpoint )
-    .then(response => {
-      console.log("axios.delete says...", response.data);
+    const endpoint = (this.props.baseUrl + "/cards/" + id); 
+       
+    axios.delete( endpoint )
+    .then((response) => {
+      // console.log("axios.delete:", response.data);
       
+      let updatedCards = [...this.state.cards].filter(card => {
+        return card.id !== parseInt(id);
+      })
+      this.setState({ cards: updatedCards });
     })
     .catch(error => {
-      console.log(error.message);
+      this.setState({ error: `Card deletion failed: ${error.message}`});
     });
-    
+
   }
 
   addNewCard = (text, emoji) => {
@@ -66,7 +66,7 @@ class Board extends Component {
     .then(response => {
       console.log("SUCCESS!", response.data);
       const updatedCards = [...this.state.cards];
-      updatedCards.push(response.data.card);
+      updatedCards.unshift(response.data.card);
       this.setState({ cards: updatedCards });
     })
     .catch(error => {
