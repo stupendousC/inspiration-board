@@ -21,6 +21,8 @@ class Board extends Component {
   componentDidMount() {
     axios.get(this.state.boardURL)
     .then((response) => {
+      console.log(response.data);
+      
       const allCards = response.data.map( (hash) => {
         return (hash.card);
       });
@@ -40,20 +42,21 @@ class Board extends Component {
 
   deleteCard = (id) => {
     console.log(`Board received: Delete triggered in <Card> for id ${id}`);
-    // DOESN"T WORK YET!!!!!!!
+    // DOESN"T WORK YET!!!!!!! I think I hsould do the axios.delete up here instead of in Card.js
   }
 
   addNewCard = (text, emoji) => {
-    console.log("TODO!  ADD NEW CARD!", text, "&", emoji);
-    const cardObj = {card: { text: {text}, emoji: {emoji} }};
+    console.log("ADD NEW CARD with params: text=", text, "& emoji=", emoji);
 
-    axios.post(this.state.boardURL, cardObj)
+    axios.post(this.state.boardURL + `?text=${text}&emoji=${emoji}`)
     .then(response => {
       console.log("SUCCESS!", response.data);
-      
+      const updatedCards = [...this.state.cards];
+      updatedCards.push(response.data.card);
+      this.setState({ cards: updatedCards });
     })
     .catch(error => {
-      this.setState({ error: `Adding new card failed b/c ${error.message}`})
+      this.setState({ error: `Adding new card failed b/c ${error.message}.`})
     });
     
   }

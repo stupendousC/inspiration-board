@@ -8,21 +8,20 @@ import Axios from 'axios';
 class Card extends Component {
 
   deleteCard = (event) => {
-    console.log(`TODO: delete this ${event.target.name}`);
+    console.log(`Delete this id: ${event.target.name}`);
+    
 
     const endpoint = (this.props.baseUrl + "/cards/" + event.target.name);
     console.log(endpoint);
     
     Axios.delete( endpoint )
     .then(response => {
-      console.log(response.data);
+      console.log("axios.delete says...", response.data);
       
       this.props.deleteCardCallback(event.target.name);
-
     })
     .catch(error => {
       console.log(error.message);
-      
     });
     
   }
