@@ -80,7 +80,7 @@ class Board extends Component {
       <div>
         { this.state.error ? <h1>{this.state.error}</h1>: null}
         
-        <section className="card__container">
+        <section className="cards__container">
           {this.showCards()}
         </section>
 

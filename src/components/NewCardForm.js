@@ -16,15 +16,19 @@ export default class NewCardForm extends Component {
   }
 
   genSelectMenu = () => {
-    return (
-      <section>
-        
+    const emojiOptions = EMOJI_LIST.map((emojiStr, i) => {
+      return (<option value={emojiStr}>{emoji.getUnicode(emojiStr)}</option>);
+    });
 
-      </section>
-    );
+    return (
+      <select name="emoji" value={this.state.emoji} onChange={this.onFieldChange} className="new-card-form__form-select">
+        {emojiOptions}
+      </select>
+    )
     
   }
-  onFieldChange = (event) => {
+
+  onFieldChange = (event) => {    
     this.setState({ [event.target.name]: event.target.value });
   }
 
@@ -41,8 +45,10 @@ export default class NewCardForm extends Component {
     return (
       <section className="new-card-form">
         <h1 className="new-card-form__header">Add a New Card!</h1>
+        
         <form onSubmit={this.onFormSubmit} className="new-card-form__form">
-          <textarea value={this.state.text} onChange={this.onFieldChange} name="text" type="text" placeholder="Message" className="new-card-form__form-textarea" />
+          <h3 className="new-card-form__form-label">Message:</h3>
+          <textarea value={this.state.text} onChange={this.onFieldChange} name="text" type="text" className="new-card-form__form-textarea" />
           
           <h3 className="new-card-form__form-label">Emoji:</h3>
           {this.genSelectMenu()}
