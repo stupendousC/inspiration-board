@@ -25,7 +25,6 @@ export default class NewCardForm extends Component {
         {emojiOptions}
       </select>
     )
-    
   }
 
   onFieldChange = (event) => {    
@@ -36,9 +35,9 @@ export default class NewCardForm extends Component {
     event.preventDefault();
 
     const { text, emoji } = this.state;
-
-    console.log(`submitting form on... ${text} & ${emoji}`);
     this.props.newCardCallback(text, emoji);
+
+    this.setState({ emoji: "", text: "" })
   }
 
   render() {
