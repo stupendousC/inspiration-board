@@ -43,5 +43,9 @@ h1, h2 {
 .cards__container {
   display: flex;
   flex-wrap: wrap;
-  
+}
+
+.switchBoard__selectMenu {
+  text-align: right;
+  margin-left: 80vw;
 }
