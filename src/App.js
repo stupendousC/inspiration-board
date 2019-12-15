@@ -8,6 +8,13 @@ class App extends Component {
   render() {
     return (
       <section>
+        <section className="selectBoardsMenu__container">
+          <select className="selectBoardsMenu">
+
+          </select>
+        </section>
+        
+
         <header className="header">
           <h1 className="header__h1"><span className="header__text">Inspiration Board</span></h1>
           <h1 className="header__h1"><span className="header__text boardName">{this.state.boardName}</span></h1>\
