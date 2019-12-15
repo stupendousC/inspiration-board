@@ -12,17 +12,16 @@ class Board extends Component {
     super(props);
 
     this.state = {
-      boardURL: this.props.url + this.props.boardName  + "/cards",
+      currBoard: this.props.boardName,
+      boardURL: this.props.URL + this.props.boardName  + "/cards",
       error: "",
       cards: [],
     };
   }
 
-  componentDidMount() {
-    axios.get(this.state.boardURL)
+  getAndSaveAllCards = (endpointURL) => {
+    axios.get(endpointURL)
     .then((response) => {
-      console.log(response.data);
-      
       const allCards = response.data.map( (hash) => {
         return (hash.card);
       });
@@ -33,21 +32,37 @@ class Board extends Component {
     })
   }
 
+  componentDidMount() {
+    this.getAndSaveAllCards(this.state.boardURL);
+  }
+
   showCards = () => {
     console.log("generating <Card> components for this.state.cards", this.state.cards);
+
+    //has there been a change to boardName?
+    if (this.state.currBoard !== this.props.boardName) {
+      console.log(`Board selection changed! UPDATE!`);
+      const updatedBoardURL = this.props.URL + this.props.boardName + "/cards";
+
+      this.setState({
+        currBoard: this.props.boardName,
+        boardURL: updatedBoardURL,
+      })
+
+      this.getAndSaveAllCards(updatedBoardURL);
+    }
+
     return (this.state.cards.map((card, i) => {
-      return(<Card key={i} id={card.id} text={card.text} emoji={card.emoji} baseUrl={this.props.baseUrl} deleteCardCallback={this.deleteCard}/>);
+      return(<Card key={i} id={card.id} text={card.text} emoji={card.emoji} baseURL={this.props.baseURL} deleteCardCallback={this.deleteCard}/>);
     }));
   }
 
   deleteCard = (id) => {
-    console.log(`Board received: Delete triggered in <Card> for id ${id}`);
-    const endpoint = (this.props.baseUrl + "/cards/" + id); 
+    // console.log(`Board received: Delete triggered in <Card> for id ${id}`);
+    const endpoint = (this.props.baseURL + "/cards/" + id); 
     
     axios.delete( endpoint )
     .then((response) => {
-      // console.log("axios.delete:", response.data);
-      
       let updatedCards = [...this.state.cards].filter(card => {
         return card.id !== parseInt(id);
       })
@@ -60,11 +75,10 @@ class Board extends Component {
   }
 
   addNewCard = (text, emoji) => {
-    console.log("ADD NEW CARD with params: text=", text, "& emoji=", emoji);
+    // console.log("ADD NEW CARD with params: text=", text, "& emoji=", emoji);
 
     axios.post(this.state.boardURL + `?text=${text}&emoji=${emoji}`)
     .then(response => {
-      console.log("SUCCESS!", response.data);
       const updatedCards = [...this.state.cards];
       updatedCards.unshift(response.data.card);
       this.setState({ cards: updatedCards });
@@ -84,7 +98,7 @@ class Board extends Component {
           {this.showCards()}
         </section>
 
-        <NewCardForm baseUrl={this.props.baseUrl} newCardCallback={this.addNewCard}/>
+        <NewCardForm baseURL={this.props.baseURL} newCardCallback={this.addNewCard}/>
 
       </div>
     )
@@ -93,7 +107,7 @@ class Board extends Component {
 }
 
 Board.propTypes = {
-  url: PropTypes.string.isRequired,
+  URL: PropTypes.string.isRequired,
   boardName: PropTypes.string.isRequired,
 };
 
