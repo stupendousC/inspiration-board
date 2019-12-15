@@ -26,7 +26,7 @@ Card.propTypes = {
   id: PropTypes.number.isRequired,
   text: PropTypes.string,
   emoji: PropTypes.string,
-  baseUrl: PropTypes.string,
+  baseURL: PropTypes.string,
   deleteCardCallback: PropTypes.func.isRequired,
 };
 

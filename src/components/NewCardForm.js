@@ -5,8 +5,8 @@ import emojiNames from 'emoji-names';
 import './NewCardForm.css';
 import { thisExpression } from '@babel/types';
 
-const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
-// const EMOJI_LIST = ["", ...emojiNames];
+// const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
+const EMOJI_LIST = ["", ...emojiNames];
 
 export default class NewCardForm extends Component {
   constructor(props) {
@@ -63,6 +63,6 @@ export default class NewCardForm extends Component {
 }
 
 NewCardForm.propTypes = {
-  baseUrl: PropTypes.string.isRequired,
+  baseURL: PropTypes.string.isRequired,
   newCardCallback: PropTypes.func.isRequired,
 }

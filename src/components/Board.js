@@ -12,17 +12,16 @@ class Board extends Component {
     super(props);
 
     this.state = {
-      boardURL: this.props.url + this.props.boardName  + "/cards",
+      boardURL: this.props.URL + this.props.boardName  + "/cards",
       error: "",
       cards: [],
     };
   }
 
   componentDidMount() {
+    // get all the cards from the board
     axios.get(this.state.boardURL)
     .then((response) => {
-      console.log(response.data);
-      
       const allCards = response.data.map( (hash) => {
         return (hash.card);
       });
@@ -33,16 +32,32 @@ class Board extends Component {
     })
   }
 
+  componentDidUpdate() {
+    // if props.boardName is different, then state.boardURL and state.cards will need to change too
+    console.log(`boardname is now ${this.props.boardName}`);
+    
+    // axios.get(this.state.boardURL)
+    // .then((response) => {
+    //   const allCards = response.data.map( (hash) => {
+    //     return (hash.card);
+    //   });
+    //   this.setState({ cards: allCards });      
+    // })
+    // .catch((error) => {
+    //   this.setState({ error: `Oh hell no!  ${error.message}`});
+    // })
+  }
+
   showCards = () => {
-    console.log("generating <Card> components for this.state.cards", this.state.cards);
+    console.log(`generating <Card> components for board ${this.props.boardName} for this.state.cards`, this.state.cards);
     return (this.state.cards.map((card, i) => {
-      return(<Card key={i} id={card.id} text={card.text} emoji={card.emoji} baseUrl={this.props.baseUrl} deleteCardCallback={this.deleteCard}/>);
+      return(<Card key={i} id={card.id} text={card.text} emoji={card.emoji} baseURL={this.props.baseURL} deleteCardCallback={this.deleteCard}/>);
     }));
   }
 
   deleteCard = (id) => {
     console.log(`Board received: Delete triggered in <Card> for id ${id}`);
-    const endpoint = (this.props.baseUrl + "/cards/" + id); 
+    const endpoint = (this.props.baseURL + "/cards/" + id); 
     
     axios.delete( endpoint )
     .then((response) => {
@@ -84,7 +99,7 @@ class Board extends Component {
           {this.showCards()}
         </section>
 
-        <NewCardForm baseUrl={this.props.baseUrl} newCardCallback={this.addNewCard}/>
+        <NewCardForm baseURL={this.props.baseURL} newCardCallback={this.addNewCard}/>
 
       </div>
     )
@@ -93,7 +108,7 @@ class Board extends Component {
 }
 
 Board.propTypes = {
-  url: PropTypes.string.isRequired,
+  URL: PropTypes.string.isRequired,
   boardName: PropTypes.string.isRequired,
 };
 
