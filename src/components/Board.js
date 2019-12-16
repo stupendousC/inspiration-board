@@ -13,7 +13,7 @@ class Board extends Component {
 
     this.state = {
       currBoard: this.props.boardName,
-      boardURL: this.props.URL + this.props.boardName  + "/cards",
+      // boardURL: this.props.boardsURL + this.props.boardName  + "/cards",
       error: "",
       cards: [],
     };
@@ -25,35 +25,34 @@ class Board extends Component {
       const allCards = response.data.map( (hash) => {
         return (hash.card);
       });
-      this.setState({ cards: allCards });      
+      this.setState({ cards: allCards, currBoard: this.props.newBoardName });
     })
     .catch((error) => {
       this.setState({ error: `Oh hell no!  ${error.message}`});
+      return null;
     })
   }
 
   componentDidMount() {
-    // console.log(`componentDidMount()`);
-    this.getAndSaveAllCards(this.state.boardURL);
+    const origBoardURL = this.props.boardsURL + this.props.boardName + "/cards";
+    this.getAndSaveAllCards(origBoardURL);
+  }
+
+  componentDidUpdate() {
+    console.log(`componentDidUPDATE`);
+    if (this.props.newBoardName !== this.props.boardName) {
+      console.log(`\n\n\n\n\n\nBOARD = ${this.props.boardName}`);
+      const updatedBoardURL = this.props.boardsURL + this.props.newBoardName + "/cards";
+      // this.getAndSaveAllCards(updatedBoardURL);
+    };
   }
 
   showCards = () => {
     // console.log(`showCards()`);
     
-    //if boardName has changed, then need to reset state on currBoard, boardURL, error, and cards[]
-    if (this.state.currBoard !== this.props.boardName) {
-      console.log(`\n\n\n\n\n\nBoard selection changed! UPDATE!`);
-      const updatedBoardURL = this.props.URL + this.props.boardName + "/cards";
+    
 
-      this.getAndSaveAllCards(updatedBoardURL);
-      this.setState({
-        currBoard: this.props.boardName,
-        boardURL: updatedBoardURL,
-        error: "",
-      })
-    }
-
-    console.log("generating <Card> components for", this.state.currBoard, this.state.cards);
+    console.log("generating <Card> components for", this.props.newBoardName);
     return (this.state.cards.map((card, i) => {
       return(<Card key={i} id={card.id} text={card.text} emoji={card.emoji} baseURL={this.props.baseURL} deleteCardCallback={this.deleteCard}/>);
     }));
@@ -72,7 +71,7 @@ class Board extends Component {
       // this.setState({ cards: updatedCards, error: "" });
 
       // Option B: if I wanted to get the latest info: both excluding the one I deleted AND getting any new cards... 
-      this.getAndSaveAllCards(this.state.boardURL);
+      this.getAndSaveAllCards(this.state.boardsURL);
     })
     .catch(error => {
       this.setState({ error: `Card deletion failed: ${error.message}`});
@@ -83,7 +82,7 @@ class Board extends Component {
   addNewCard = (text, emoji) => {
     // console.log("ADD NEW CARD with params: text=", text, "& emoji=", emoji);
 
-    axios.post(this.state.boardURL + `?text=${text}&emoji=${emoji}`)
+    axios.post(this.state.boardsURL + `?text=${text}&emoji=${emoji}`)
     .then(response => {
       const updatedCards = [...this.state.cards];
       updatedCards.unshift(response.data.card);
@@ -96,12 +95,14 @@ class Board extends Component {
   }
 
   render() {
+    const allCards = this.showCards();
+
     return (
       <div>
         { this.state.error ? <h1>{this.state.error}</h1>: null}
         
         <section className="cards__container">
-          {this.showCards()}
+          {allCards}
         </section>
 
         <NewCardForm baseURL={this.props.baseURL} newCardCallback={this.addNewCard}/>
@@ -113,7 +114,7 @@ class Board extends Component {
 }
 
 Board.propTypes = {
-  URL: PropTypes.string.isRequired,
+  boardsURL: PropTypes.string.isRequired,
   boardName: PropTypes.string.isRequired,
 };
 

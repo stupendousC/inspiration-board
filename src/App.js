@@ -10,6 +10,7 @@ class App extends Component {
       baseURL: "https://inspiration-board.herokuapp.com",
       boardURL: "https://inspiration-board.herokuapp.com/boards/",
       boardName: "StupendousC", 
+      newBoardName: "StupendousC",
       allBoards: [],
       boardOptions: [],
     }
@@ -36,7 +37,7 @@ class App extends Component {
   }
   
   onSelectNewBoard = (event) => {
-    this.setState({ boardName: event.target.value });
+    this.setState({ newBoardName: event.target.value });
   }
 
   render() {
@@ -44,7 +45,7 @@ class App extends Component {
       <section>
 
         <section className="selectBoardsMenu__container">
-          <select name="newBoard" value={this.state.boardName} onChange={this.onSelectNewBoard} className="selectBoardsMenu">
+          <select name="newBoard" value={this.state.newBoardName} onChange={this.onSelectNewBoard} className="selectBoardsMenu">
             {this.state.boardOptions}
           </select>
         </section>
@@ -56,8 +57,9 @@ class App extends Component {
 
         <Board
           baseURL={this.state.baseURL}
-          URL={this.state.boardURL}
+          boardsURL={this.state.boardURL}
           boardName={this.state.boardName}
+          newBoardName={this.state.newBoardName}
         />
 
       </section>
