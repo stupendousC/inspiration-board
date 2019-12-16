@@ -21,7 +21,7 @@ describe('Card', () => {
     expect(result.getByText(/super cool/)).toBeDefined();
   });
 
-  test( 'clicking Delete actually does what is expected', () => {
+  test( 'clicking Delete actually does trigger deleteCardCallback', () => {
     // Arrange
     // create a mock callback fcn
     const mockDelete = jest.fn();
