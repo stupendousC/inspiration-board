@@ -54,7 +54,7 @@ export default class NewCardForm extends Component {
           <h3 className="new-card-form__form-label">Emoji:</h3>
           {this.genSelectMenu()}
 
-          <input type="submit" className="new-card-form__form-button"/>
+          <input type="submit" data-testid="submit" className="new-card-form__form-button"/>
         </form>
 
       </section>

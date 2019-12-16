@@ -7892,6 +7892,7 @@ exports[`Board matches existing snapshot 1`] = `
         </select>
         <input
           class="new-card-form__form-button"
+          data-testid="submit"
           type="submit"
         />
       </form>
