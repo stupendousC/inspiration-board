@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import Card from '../Card';
-import expectExport from 'expect';
 import emoji from 'emoji-dictionary';
 
 describe('Card', () => {
