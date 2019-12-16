@@ -44,16 +44,12 @@ class App extends Component {
     return (
       <section>
 
-
         <section className="selectBoardsMenu__container">
           <select name="newBoard" value={this.state.boardName} onChange={this.onSelectNewBoard} className="selectBoardsMenu">
             {this.state.boardOptions}
           </select>
         </section>
         
-
-
-
         <header className="header">
           <h1 className="header__h1"><span className="header__text">Inspiration Board</span></h1>
           <h1 className="header__h1"><span className="header__text boardName">{this.state.boardName}</span></h1>\
@@ -63,7 +59,7 @@ class App extends Component {
           baseURL={this.state.baseURL}
           URL={this.state.boardURL}
           boardName={this.state.boardName}
-          />
+        />
 
       </section>
     );

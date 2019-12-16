@@ -33,25 +33,32 @@ class Board extends Component {
   }
 
   componentDidMount() {
+    console.log(`componentDidMount()`);
+    
     this.getAndSaveAllCards(this.state.boardURL);
   }
 
   showCards = () => {
-    console.log("generating <Card> components for this.state.cards", this.state.cards);
+    console.log(`showCards()`);
+    
+    
 
-    //has there been a change to boardName?
+    //if boardName has changed, then need to reset state on currBoard, boardURL, error, and cards[]
     if (this.state.currBoard !== this.props.boardName) {
-      console.log(`Board selection changed! UPDATE!`);
+      console.log(`\n\n\n\n\n\nBoard selection changed! UPDATE!`);
       const updatedBoardURL = this.props.URL + this.props.boardName + "/cards";
 
+      
+
+      this.getAndSaveAllCards(updatedBoardURL);
       this.setState({
         currBoard: this.props.boardName,
         boardURL: updatedBoardURL,
+        error: "",
       })
-
-      this.getAndSaveAllCards(updatedBoardURL);
     }
 
+    console.log("generating <Card> components for", this.state.currBoard, this.state.cards);
     return (this.state.cards.map((card, i) => {
       return(<Card key={i} id={card.id} text={card.text} emoji={card.emoji} baseURL={this.props.baseURL} deleteCardCallback={this.deleteCard}/>);
     }));
@@ -66,7 +73,7 @@ class Board extends Component {
       let updatedCards = [...this.state.cards].filter(card => {
         return card.id !== parseInt(id);
       })
-      this.setState({ cards: updatedCards });
+      this.setState({ cards: updatedCards, error: "" });
     })
     .catch(error => {
       this.setState({ error: `Card deletion failed: ${error.message}`});
