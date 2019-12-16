@@ -1,4 +1,5 @@
 # Inspiration Board
+##[>>> CAROLINE'S DEPLOYED GITHUB PAGE <<<](https://stupendousc.github.io/inspiration-board/)##
 
 ## At a Glance
 
