@@ -4,20 +4,16 @@ import Board from '../Board';
 
 describe('Board', () => {
 
-  // test('matches existing snapshot', () => {
-  //   //Arrange-Act
+  test('matches existing snapshot', () => {
+    //Arrange-Act
 
-  //   const result = render(
-  //     <Board URL="abc" boardName="xyz"/>
-  //   );
+    const result = render(
+      <Board baseURL="base" URL="abc" boardName="xyz"/>
+    );
 
-  //   //Assert
-  //     expect(result.asFragment()).toMatchSnapshot();
-  //     cleanup();
-  // })
-
-  test('idk', () => {
-    expect(true);
+    //Assert
+      expect(result.asFragment()).toMatchSnapshot();
+      cleanup();
   })
 
 });
