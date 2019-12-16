@@ -33,22 +33,17 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    console.log(`componentDidMount()`);
-    
+    // console.log(`componentDidMount()`);
     this.getAndSaveAllCards(this.state.boardURL);
   }
 
   showCards = () => {
-    console.log(`showCards()`);
+    // console.log(`showCards()`);
     
-    
-
     //if boardName has changed, then need to reset state on currBoard, boardURL, error, and cards[]
     if (this.state.currBoard !== this.props.boardName) {
       console.log(`\n\n\n\n\n\nBoard selection changed! UPDATE!`);
       const updatedBoardURL = this.props.URL + this.props.boardName + "/cards";
-
-      
 
       this.getAndSaveAllCards(updatedBoardURL);
       this.setState({
@@ -70,10 +65,14 @@ class Board extends Component {
     
     axios.delete( endpoint )
     .then((response) => {
-      let updatedCards = [...this.state.cards].filter(card => {
-        return card.id !== parseInt(id);
-      })
-      this.setState({ cards: updatedCards, error: "" });
+      // Option A: instead of sending another API to get any other new cards, I just deleted the one from state
+      // let updatedCards = [...this.state.cards].filter(card => {
+      //   return card.id !== parseInt(id);
+      // })
+      // this.setState({ cards: updatedCards, error: "" });
+
+      // Option B: if I wanted to get the latest info: both excluding the one I deleted AND getting any new cards... 
+      this.getAndSaveAllCards(this.state.boardURL);
     })
     .catch(error => {
       this.setState({ error: `Card deletion failed: ${error.message}`});
