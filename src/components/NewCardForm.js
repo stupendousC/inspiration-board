@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import emoji from 'emoji-dictionary';
 import emojiNames from 'emoji-names';
 import './NewCardForm.css';
-import { thisExpression } from '@babel/types';
+// import { thisExpression } from '@babel/types';   IDK what this is, but it's not being used...
 
 // const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
 const EMOJI_LIST = ["", ...emojiNames];
@@ -19,7 +19,7 @@ export default class NewCardForm extends Component {
 
   genSelectMenu = () => {
     const emojiOptions = EMOJI_LIST.map((emojiStr, i) => {
-      return (<option value={emojiStr}>{emoji.getUnicode(emojiStr)}</option>);
+      return (<option value={emojiStr} key={i}>{emoji.getUnicode(emojiStr)}</option>);
     });
 
     return (
@@ -63,6 +63,6 @@ export default class NewCardForm extends Component {
 }
 
 NewCardForm.propTypes = {
-  baseUrl: PropTypes.string.isRequired,
+  baseURL: PropTypes.string.isRequired,
   newCardCallback: PropTypes.func.isRequired,
 }

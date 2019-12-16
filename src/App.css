@@ -52,5 +52,7 @@ h1, h2 {
 }
 
 .selectBoardsMenu {
-  color: blue;
+  color: yellow;
+  background-color: black;
+  font-family: "raleway";
 }
