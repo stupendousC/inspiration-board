@@ -113,6 +113,7 @@ class Board extends Component {
 }
 
 Board.propTypes = {
+  baseURL: PropTypes.string.isRequired,
   URL: PropTypes.string.isRequired,
   boardName: PropTypes.string.isRequired,
 };
