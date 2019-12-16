@@ -36,6 +36,7 @@ class App extends Component {
   }
   
   onSelectNewBoard = (event) => {
+    console.log(`you selected ${event.target.value}`);
     this.setState({ boardName: event.target.value });
   }
 

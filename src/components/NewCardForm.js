@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import emoji from 'emoji-dictionary';
 import emojiNames from 'emoji-names';
 import './NewCardForm.css';
-// import { thisExpression } from '@babel/types';   IDK what this is, but it's not being used...
+import { thisExpression } from '@babel/types';   
+//IDK what this is, but it's not being used...
 
 // const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
 const EMOJI_LIST = ["", ...emojiNames];
