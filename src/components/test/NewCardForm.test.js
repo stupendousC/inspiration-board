@@ -7,7 +7,7 @@ describe('NewCardForm', () => {
   test( 'matches existing snapshot', () => {
     // Arrange-Act
     const result = render(
-      <NewCardForm baseURL="abc" newCardCallback={()=>{}}/>
+      <NewCardForm baseURL="https://inspiration-board.herokuapp.com" newCardCallback={()=>{}}/>
     );
 
     // Assert
