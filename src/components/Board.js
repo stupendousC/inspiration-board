@@ -33,13 +33,12 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    // console.log(`componentDidMount()`);
+    console.log(`\ncomponentDidMount()`);
     this.getAndSaveAllCards(this.state.boardURL);
   }
 
-  showCards = () => {
-    // console.log(`showCards()`);
-    
+  componentDidUpdate() {
+    console.log(`\ncomponentDidUpdate()`);
     //if boardName has changed, then need to reset state on currBoard, boardURL, error, and cards[]
     if (this.state.currBoard !== this.props.boardName) {
       console.log(`\n\n\n\n\n\nBoard selection changed! UPDATE!`);
@@ -52,6 +51,12 @@ class Board extends Component {
         error: "",
       })
     }
+  }
+
+  showCards = () => {
+    console.log(`\nshowCards()`);
+    
+    
 
     console.log("generating <Card> components for", this.state.currBoard, this.state.cards);
     return (this.state.cards.map((card, i) => {
